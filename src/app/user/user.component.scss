@@ -2,4 +2,9 @@
     position: absolute;
     right: 56px;
     bottom: 56px;
+    background-color: darkred;
+    color: white;
+    &:hover{
+        background-color: rgb(184, 2, 2);
+    }
 }
