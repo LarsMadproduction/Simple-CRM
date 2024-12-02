@@ -1,0 +1,19 @@
+.dialog-content {
+  background-color: bisque;
+  h2{
+    color: black;
+  }
+  p{
+    color: black;
+  }
+}
+
+button{
+    color: black !important;
+    &:hover{
+        background-color: rgba(139, 0, 0, 0.5) ;
+    }
+    &:focus{
+        background-color: rgb(185, 0, 0) ;
+    }
+}
