@@ -22,7 +22,7 @@
 
 .logo-container {
   padding-inline: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   min-height: 55px;
   display: flex;
   align-items: center;
@@ -51,4 +51,9 @@ ul {
 
 mat-icon{
     margin-right: 16px;
+}
+
+.router-container{
+  padding-block: 16px;
+  padding-inline: 56px;
 }
