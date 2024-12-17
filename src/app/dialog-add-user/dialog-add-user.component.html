@@ -2,17 +2,17 @@
 <mat-dialog-content>
   <mat-form-field class="mr-16">
     <mat-label>First Name</mat-label>
-    <input matInput />
+    <input [(ngModel)]="user.firstName" matInput />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Last Name</mat-label>
-    <input matInput />
+    <input [(ngModel)]="user.lastName" matInput />
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-content>
   <mat-form-field class="full-width">
     <mat-label>Birth Date</mat-label>
-    <input matInput [matDatepicker]="picker" />
+    <input [(ngModel)]="user.birthDate" matInput [matDatepicker]="picker" />
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
@@ -21,22 +21,22 @@
 <mat-dialog-content>
   <mat-form-field class="full-width">
     <mat-label>Street No.</mat-label>
-    <input matInput />
+    <input [(ngModel)]="user.street" matInput />
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-content>
     <mat-form-field class="mr-16">
       <mat-label>Zip code</mat-label>
-      <input matInput />
+      <input [(ngModel)]="user.zipCode" matInput />
     </mat-form-field>
     <mat-form-field>
       <mat-label>City</mat-label>
-      <input matInput />
+      <input [(ngModel)]="user.city" matInput />
     </mat-form-field>
   </mat-dialog-content>
 <mat-dialog-content>
   <mat-dialog-actions class="btn-end">
     <button mat-button>No Thanks</button>
-    <button mat-button cdkFocusInitial>Ok</button>
+    <button mat-button (click)="saveUser()" cdkFocusInitial>Ok</button>
   </mat-dialog-actions>
 </mat-dialog-content>

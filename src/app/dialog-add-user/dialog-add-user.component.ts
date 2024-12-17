@@ -9,9 +9,13 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatCalendarCellClassFunction, MatDatepickerModule} from '@angular/material/datepicker';
-
+import {
+  MatDatepickerModule,
+  MatCalendarCellClassFunction,
+} from '@angular/material/datepicker';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { User } from '../../models/user.class';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -22,29 +26,38 @@ import {MatCalendarCellClassFunction, MatDatepickerModule} from '@angular/materi
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDatepickerModule
+    MatDatepickerModule,
   ],
   templateUrl: './dialog-add-user.component.html',
-  styleUrl: './dialog-add-user.component.scss',
+  styleUrls: ['./dialog-add-user.component.scss'],
 })
 export class DialogAddUserComponent {
-  constructor(public dialog: MatDialog) {}
+  user = new User();
+  birthDate = new Date();
+
+  constructor(public dialog: MatDialog, private firestore: Firestore) {}
+
+  async saveUser() {
+    try {
+      this.user.birthDate = this.birthDate.getTime();
+      console.log('Saving user:', this.user);
+
+      const usersCollection = collection(this.firestore, 'users');
+      const result = await addDoc(usersCollection, { ...this.user });
+      console.log('User added:', result);
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  }
+
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highligh dates inside the month view.
     if (view === 'month') {
       const date = cellDate.getDate();
-
-      // Highlight the 1st and 20th day of each month.
       return date === 1 || date === 20 ? 'example-custom-date-class' : '';
     }
-
     return '';
   };
 }
