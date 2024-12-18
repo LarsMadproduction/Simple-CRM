@@ -5,6 +5,7 @@ import {
   MatDialog,
   MatDialogActions,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +17,8 @@ import {
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -30,6 +33,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatDialogContent,
     MatDialogActions,
     MatDatepickerModule,
+    MatProgressBarModule,
+    CommonModule,
   ],
   templateUrl: './dialog-add-user.component.html',
   styleUrls: ['./dialog-add-user.component.scss'],
@@ -37,17 +42,20 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export class DialogAddUserComponent {
   user = new User();
   birthDate = new Date();
+  loading = false;
 
-  constructor(public dialog: MatDialog, private firestore: Firestore) {}
+  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, private firestore: Firestore) {}
 
   async saveUser() {
     try {
       this.user.birthDate = this.birthDate.getTime();
       console.log('Saving user:', this.user);
-
-      const usersCollection = collection(this.firestore, 'users');
-      const result = await addDoc(usersCollection, { ...this.user });
+      this.loading = true;
+      let usersCollection = collection(this.firestore, 'users');
+      let result = await addDoc(usersCollection, { ...this.user });
       console.log('User added:', result);
+      this.loading = false;
+      this.dialogRef.close();
     } catch (error) {
       console.error('Error adding user:', error);
     }

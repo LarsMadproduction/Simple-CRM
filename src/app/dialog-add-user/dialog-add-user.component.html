@@ -1,18 +1,19 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <h2 mat-dialog-title>Add User</h2>
 <mat-dialog-content>
   <mat-form-field class="mr-16">
     <mat-label>First Name</mat-label>
-    <input [(ngModel)]="user.firstName" matInput />
+    <input [disabled]="loading" [(ngModel)]="user.firstName" matInput />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Last Name</mat-label>
-    <input [(ngModel)]="user.lastName" matInput />
+    <input [disabled]="loading" [(ngModel)]="user.lastName" matInput />
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-content>
   <mat-form-field class="full-width">
     <mat-label>Birth Date</mat-label>
-    <input [(ngModel)]="user.birthDate" matInput [matDatepicker]="picker" />
+    <input [disabled]="loading" [(ngModel)]="user.birthDate" matInput [matDatepicker]="picker" />
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
@@ -21,22 +22,22 @@
 <mat-dialog-content>
   <mat-form-field class="full-width">
     <mat-label>Street No.</mat-label>
-    <input [(ngModel)]="user.street" matInput />
+    <input [disabled]="loading" [(ngModel)]="user.street" matInput />
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-content>
-    <mat-form-field class="mr-16">
-      <mat-label>Zip code</mat-label>
-      <input [(ngModel)]="user.zipCode" matInput />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>City</mat-label>
-      <input [(ngModel)]="user.city" matInput />
-    </mat-form-field>
-  </mat-dialog-content>
+  <mat-form-field class="mr-16">
+    <mat-label>Zip code</mat-label>
+    <input [disabled]="loading" [(ngModel)]="user.zipCode" matInput />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>City</mat-label>
+    <input [disabled]="loading" [(ngModel)]="user.city" matInput />
+  </mat-form-field>
+</mat-dialog-content>
 <mat-dialog-content>
   <mat-dialog-actions class="btn-end">
-    <button mat-button>No Thanks</button>
-    <button mat-button (click)="saveUser()" cdkFocusInitial>Ok</button>
+    <button [disabled]="loading" mat-button>No Thanks</button>
+    <button [disabled]="loading" mat-button (click)="saveUser()" cdkFocusInitial>Ok</button>
   </mat-dialog-actions>
 </mat-dialog-content>
