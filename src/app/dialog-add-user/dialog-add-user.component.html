@@ -43,7 +43,7 @@
 </mat-dialog-content>
 <mat-dialog-content>
   <mat-dialog-actions class="btn-end">
-    <button [disabled]="loading" mat-button>No Thanks</button>
+    <button [disabled]="loading" mat-button (click)="dialogRef.close()">No Thanks</button>
     <button [disabled]="loading" mat-button (click)="saveUser()" cdkFocusInitial>Ok</button>
   </mat-dialog-actions>
 </mat-dialog-content>
