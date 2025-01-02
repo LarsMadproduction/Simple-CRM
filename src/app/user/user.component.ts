@@ -33,11 +33,9 @@ export class UserComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private firestore: Firestore) {}
   ngOnInit(): void {
-    const usersCollection = collection(this.firestore, 'users');
+    let usersCollection = collection(this.firestore, 'users');
     collectionData(usersCollection, {idField: 'customIdName'}).subscribe((changes: any) => {
-      this.allUsers = changes;
-      console.log(this.allUsers);
-      
+      this.allUsers = changes;     
     });
   }
 
