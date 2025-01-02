@@ -9,6 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Firestore } from '@angular/fire/firestore';
 import { collection, collectionData } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-user',
@@ -20,6 +22,7 @@ import { CommonModule } from '@angular/common';
     MatDialogModule,
     MatCardModule,
     CommonModule,
+    RouterModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
@@ -31,8 +34,10 @@ export class UserComponent implements OnInit {
   constructor(public dialog: MatDialog, private firestore: Firestore) {}
   ngOnInit(): void {
     const usersCollection = collection(this.firestore, 'users');
-    collectionData(usersCollection).subscribe((changes: any) => {
+    collectionData(usersCollection, {idField: 'customIdName'}).subscribe((changes: any) => {
       this.allUsers = changes;
+      console.log(this.allUsers);
+      
     });
   }
 
