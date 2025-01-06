@@ -3,11 +3,16 @@ import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
@@ -15,7 +20,11 @@ export class UserDetailsComponent implements OnInit {
   userId: string = '';
   user: User = new User();
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore) {}
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private firestore: Firestore
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
@@ -38,5 +47,11 @@ export class UserDetailsComponent implements OnInit {
         console.error('Error fetching user data:', error);
       }
     );
+  }
+
+  editMenu() {
+    const dialog = this.dialog.open(DialogEditUserComponent);
+    dialog.componentInstance.user = new User(this.user)
+    dialog.componentInstance.userId = this.userId
   }
 }
